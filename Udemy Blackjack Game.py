@@ -61,13 +61,13 @@ dealer=Dealer()
 
 #game logic
 while True:
-    player_name=input("What's your name?")
-    player_bankroll=int(input("How much money do you have?"))
+    player_name=input("What's your name? ")
+    player_bankroll=int(input("How much money do you have? "))
     player_1=Player(player_name,player_bankroll)
 
     play_game=True
 
-    begin_game=input(f"Hi {player_name}, Would you like to play Blackack? y/n")
+    begin_game=input(f"Hi {player_name}, Would you like to play Blackack? y/n: ")
     if begin_game=='y':
         play_game=True
     if begin_game=='n':
@@ -82,7 +82,7 @@ while True:
             break
 
         while player_1.bet_in_play==0:
-            bet_amount=int(input("How much would you like to bet?"))
+            bet_amount=int(input("How much would you like to bet? "))
             if isinstance(bet_amount,int)==True and bet_amount <= player_1.bankroll:
                     player_1.bet(bet_amount)
                     break
@@ -90,20 +90,21 @@ while True:
                     print("You don't have that much!")
 
 
-        if len(dealer.dealers_hand)<2:
+
+        while len(dealer.dealers_hand)<2:
             player_1.hit(new_deck.deal_one)
             dealer.hit(new_deck.deal_one)
 
-        print(f'{player_name} has {player_1.hand}')
+        print(f'{player_name} has {player_1.hand[0],player_1.hand[1]}')
         print(f'dealer is showing {dealer.dealers_hand[0]}')
 
         player_turn=True
         dealer_turn=False
 
         while player_turn:
-                choice=input('Would you like to hit or stay?').lower()
+                choice=input('Would you like to hit or stay? ').lower()
                 if choice=='hit':
-                    player_1.hit(new_deck.deal_one())
+                    player_1.hit(new_deck.deal_one)
                     if sum(player_1.hand.value)>21:
                         print(player_1.hand)
                         print('Player has busted! Dealer wins')
@@ -119,7 +120,7 @@ while True:
 
         while dealer_turn:
             if sum(dealer.dealers_hand.value)<17:
-                dealer.hit(new_deck.deal_one())
+                dealer.hit(new_deck.deal_one)
             if sum(dealer.dealers_hand.value)>21:
                  print(dealer.dealers_hand)
                  print('Dealer has busted! Player wins!')
