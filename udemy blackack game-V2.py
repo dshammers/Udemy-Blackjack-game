@@ -1,8 +1,8 @@
 import random
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King','Ace')
-values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
-            'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10,'Ace':[11,1]}
+values = {Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
+            'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10,'Ace':11}
 
 #classes
 class Card():
@@ -40,15 +40,24 @@ class Dealer:
         for i in self.hand:
             print i
 
-    def value_check(self):
-        total_value=[]
+    def aces(self):
+        aces = 0
         for i in self.hand:
-            total_value.append(i.value)
-        if sum(total_value) > 21:
-            for i in hand:
-                if i.rank=='Ace':
-                    total_value-=10
-        return sum(total_value)
+            if i.value == 11:
+                aces += 1
+        return aces
+
+    def value_check(self):
+        v = 0
+        for i in self.hand:
+            v += i.value
+        if v > 21:
+            for i in self.hand:
+                if i.value == 11:
+                    v-=10
+                    if v <= 21:
+                        return v
+        return v
 
     def hit_or_stay(self):
         if self.value_check<17:
@@ -65,7 +74,6 @@ class Player(Dealer):
     def bet(self,bet):
         self.bankroll-=bet
         self.bet_in_play+=bet
-
 
 #functions        
 def player_hit(num):
