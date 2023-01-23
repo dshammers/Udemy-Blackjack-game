@@ -1,7 +1,7 @@
 import random
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King','Ace')
-values = {Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
+values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
             'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10,'Ace':11}
 
 #classes
@@ -40,13 +40,6 @@ class Dealer:
         for i in self.hand:
             print i
 
-    def aces(self):
-        aces = 0
-        for i in self.hand:
-            if i.value == 11:
-                aces += 1
-        return aces
-
     def value_check(self):
         v = 0
         for i in self.hand:
@@ -59,22 +52,45 @@ class Dealer:
                         return v
         return v
 
-    def hit_or_stay(self):
-        if self.value_check<17:
-            self.hit
-
     
 class Player(Dealer):
     
     def __init_(self,name,bankroll):
         self.name=name
         self.bankroll=bankroll
-        self.bet_in_play=[]
+        self.bet_in_play=0
     
     def bet(self,bet):
         self.bankroll-=bet
         self.bet_in_play+=bet
+    
+    def winning(self,bet):
+        self.bankroll+=bet*2
 
 #functions        
-def player_hit(num):
-    
+def dealer_hit(dealer):
+    value=dealer.value_check
+    if value > 17:
+        dealer.hit
+    else:
+        return value
+
+def bust_check(player,dealer):
+    if player.value > dealer.value:
+        print ('Player wins!')
+        player.winning
+    else:
+        print ('Dealer wins!')
+        player.bet_in_play=0
+
+def player_choice(player):
+    player.display_hand
+    while True:
+        choice=input('Would you like to hit or stay? ').lower()
+        if choice=='hit':
+            player.hit
+            player.display_hand
+        elif choice=='stay':
+            break
+
+def 
