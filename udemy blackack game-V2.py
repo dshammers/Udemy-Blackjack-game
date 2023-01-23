@@ -33,6 +33,10 @@ class Dealer:
     def __init__(self):
         self.hand=[]
     
+    def deal_hand(self,self.hand,deck):
+        if len(self.hand) < 2:
+            self.hand.append(deck.deal_one)
+
     def hit(self,new_card):
         self.hand.append(new_card)
 
@@ -55,8 +59,7 @@ class Dealer:
     
 class Player(Dealer):
     
-    def __init_(self,name,bankroll):
-        self.name=name
+    def __init_(self,bankroll):
         self.bankroll=bankroll
         self.bet_in_play=0
     
@@ -67,7 +70,8 @@ class Player(Dealer):
     def winning(self,bet):
         self.bankroll+=bet*2
 
-#functions        
+#functions
+
 def dealer_hit(dealer):
     value=dealer.value_check
     if value > 17:
@@ -75,13 +79,16 @@ def dealer_hit(dealer):
     else:
         return value
 
-def bust_check(player,dealer):
-    if player.value > dealer.value:
+def win_check(player_value,dealer_value):
+    if player_value > dealer_value:
         print ('Player wins!')
         player.winning
-    else:
+    elif dealer_value > player_value:
         print ('Dealer wins!')
         player.bet_in_play=0
+    elif player_value == dealer_value:
+        print ('Push!')
+        player.bankroll+=player.bet_in_play
 
 def player_choice(player):
     player.display_hand
@@ -93,4 +100,61 @@ def player_choice(player):
         elif choice=='stay':
             break
 
-def 
+def bust_check(hand):
+    if hand.value > 21:
+        print ('This hand is over 21!')
+    else:
+        print ('This hand can keep playing!')
+
+#control logic
+
+#dealer and player are made
+dealer=Dealer()
+player=Player(200)
+
+#deck is made and shuffled
+new_deck=Deck()
+new_deck.shuffle
+
+#game begins
+
+while True:
+
+    if player.bankroll==0:
+        print ("You're out of money!")
+        play_again=False
+        break
+
+    play_game=False
+
+    choice=input('Would you like to play Blackjack? y/n: ').lower()
+    if choice=='y':
+        play_game=True
+    if choice=='n':
+        play_game=False
+    
+    while play_game:    
+    #hands are dealt
+    dealer.deal_hand
+    player.deal_hand
+    
+    #player goes first
+    player.display_hand
+    dealer.display_hand
+
+    player_choice(player)
+
+    bust_check(player.hand)
+
+    player.display_hand
+
+    dealer_hit(dealer.hand)
+
+    bust_check(dealer.hand)
+
+    dealer.display_hand
+
+    win_check(player.value_check,dealer.value_check)
+
+    if play_again==False:
+        break
