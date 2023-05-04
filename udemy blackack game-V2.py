@@ -134,27 +134,27 @@ while True:
         play_game=False
     
     while play_game:    
-    #hands are dealt
-    dealer.deal_hand
-    player.deal_hand
-    
-    #player goes first
-    player.display_hand
-    dealer.display_hand
+        #hands are dealt
+        dealer.deal_hand
+        player.deal_hand
+        
+        #player goes first
+        player.display_hand
+        dealer.display_hand
 
-    player_choice(player)
+        player_choice(player)
 
-    bust_check(player.hand)
+        bust_check(player.hand)
 
-    player.display_hand
+        player.display_hand
 
-    dealer_hit(dealer.hand)
+        dealer_hit(dealer.hand)
 
-    bust_check(dealer.hand)
+        bust_check(dealer.hand)
 
-    dealer.display_hand
+        dealer.display_hand
 
-    win_check(player.value_check,dealer.value_check)
+        win_check(player.value_check,dealer.value_check)
 
-    if play_again==False:
-        break
+        if play_again==False:
+            break
